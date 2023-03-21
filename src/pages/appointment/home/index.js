@@ -1,11 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from "../../../components/containers";
 import { Footer } from "../../../components/footer";
 import { Logo } from "../../../components/Logo/logo1";
 import {useNavigate} from "react-router-dom";
 
 import { Box, ContainerButtons, ContainerDate, ContainerTitle, ContainerValues, GreenButton, Header, Input, InputDateTime, Main, Option, RedButton, Select, TextArea, Title } from "./styles/styles";
+import { isAuth } from '../../home/component/auth';
 export const MarcarConsulta = _ => {
     const navigate = useNavigate()
 
@@ -13,8 +14,17 @@ export const MarcarConsulta = _ => {
     const [dataHoraConsulta, setDataHoraConsulta] = useState('');
     const [comentarioc, setComentario] = useState('');
 
+    useEffect( _ => {
+        if(!isAuth()){
+            navigate('/')
+        }
+        
+    }, []);
+    
     const buttonConfirmarAction = _ =>{
         const url = 'http://srpinheiro.com:8080/consultas'
+
+        
 
         const data = {
             doctor: profissional,

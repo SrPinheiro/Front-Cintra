@@ -113,7 +113,9 @@ export const ContainerComentario = styled.div`
         outline: none;
         overflow-y: auto;
         resize: none;
-        height: 50%
+        height: 50%;
+        padding: 20px;
+        text-align: center;
     }
 
     *{

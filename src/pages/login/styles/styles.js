@@ -20,6 +20,10 @@ export const Box = styled.div`
         border-radius: 5%;
         
     }
+
+    @media (max-width: 400px) {
+        width: 90%;
+      }
 `;
 
 export const Main = styled.div`

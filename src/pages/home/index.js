@@ -34,39 +34,24 @@ export const Home = _ => {
 
     const url = 'http://srpinheiro.com:8080/consultas'
 
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                let data = JSON.parse(xhr.responseText);
-                console.log('aaa');
-                console.log(data);
-                console.log('aaa');
-
-                const newComponentList = data.map(_ => <ConsultaBox title={_.doctor} value={_.comentario} id={_.id}/>);
-                setComponentList(newComponentList);
-            } else {
-                console.error('Erro na requisição');
+    if(componentList == ''){
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText);
+                    const newComponentList = data.map(_ => <ConsultaBox title={_.doctor} value={_.comentario} id={_.id}/>);
+                    setComponentList(newComponentList);
+                } else {
+                    console.error('Erro na requisição');
+                }
             }
-        }
-    };
-    xhr.open('GET', url);
-    xhr.withCredentials = true;
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send();
-
-
-
-    //console.log(consultas[0])
-    
-    /*consultas.forEach(_ => {
-        componentList.push(<ConsultaBox title={_.doctor} value={_.comentario}/>);   
-
-    })*/
-    
-
-
-    
+        };
+        xhr.open('GET', url);
+        xhr.withCredentials = true;
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send();
+    }
 
 
     const sideBarButtonAction = _ =>{
@@ -77,13 +62,20 @@ export const Home = _ => {
     const marcarConsultaAction = _ =>{
         navigate("/appointment")
     }
+    const logOutButtonAction = _ => {
+        document.cookie = `userToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        window.location.href='/'
+    }
 
     
 
     return(
         <Container>
             <Logo>Cintra</Logo>
-            <LeftBar id='sidebar'> <p>ola mundo</p></LeftBar>
+            <LeftBar id='sidebar'>
+                <button onClick={_ => {navigate('/shop')}}>Farmacia</button>
+                <button onClick={logOutButtonAction}>Deslogar</button>
+            </LeftBar>
             <Header>
                 <HeaderDiv1>
                     <ButtonOptions>

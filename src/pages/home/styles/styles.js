@@ -60,6 +60,11 @@ export const Button = styled.button`
       width: 17%;
       border-radius: 30px;
       background-color: lightgreen;
+
+      @media (max-width: 400px) {
+        width: 90%;
+        margin-bottom: 40px;
+      }
 `;
 
 export const ButtonOptions = styled.button`
@@ -80,17 +85,33 @@ export const LeftBar = styled.div`
       height: 10%;
       background-color: transparent;
       transition: width 0.5s;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       
 
       *{
         opacity: 0;
-        
+        width: 100%;
+        text-align: center;
       };
+
+      button{
+        height: 10%;
+        background-color: transparent;
+        border: none;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        box-shadow: 0 0 0 1px black;
+      }
 
 
       &:hover{
         width: 35%;
-        background-color: white;
+        background-color: aliceblue;
+        box-shadow: 0 0 5px 1px rgba(193, 193, 193, 0.7);
+
         height: 100%;
 
         *{

@@ -6,6 +6,7 @@ import {SingUp} from "./pages/register"
 import { Home } from './pages/home';
 import { MarcarConsulta } from './pages/appointment/home';
 import {AppointmentByIndex} from './pages/appointment/byIndex'
+import {Farmacia} from './pages/farmacia'
 
 
 
@@ -19,6 +20,7 @@ function App() {
               <Route path={"/home"} element={<Home/>} />
               <Route path={"/appointment"} element={<MarcarConsulta/>} />
               <Route path={"/appointment/:id"} element={<AppointmentByIndex/>} />
+              <Route path={"/shop"} element={<Farmacia/>} />
               
           </Routes>
       </BrowserRouter>

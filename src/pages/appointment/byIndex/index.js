@@ -1,20 +1,28 @@
 import { useNavigate, useParams } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "../../../components/containers";
 import { Footer } from "../../../components/footer";
 import { Header, Main, LeftContainer, Box, PersonDiv, ButtonContainer, NormalButton, BadButton, TextArea, ContainerComentario } from "./styles/styles";
 import { Logo } from "../../../components/Logo/logo1";
+import { isAuth } from "../../home/component/auth";
 
 
 export const AppointmentByIndex = _ =>{
     const {id} = useParams();
-    const navigation = useNavigate();
+    const navigate = useNavigate();
 
     const [cliente, setCliente] = useState("");
     const [medico, setMedico] = useState("");
     const [data, setData] = useState("");
     const [valor, setValor] = useState("");
     const [comentario, setComentario] = useState("");
+
+    useEffect( _ => {
+        if(!isAuth()){
+            navigate('/')
+        }
+        
+    }, []);
 
     const url = `http://srpinheiro.com:8080/consultas/${id}`;
 
@@ -28,14 +36,26 @@ export const AppointmentByIndex = _ =>{
         })
             .then(response => response.json())
             .then(data => {
-                setCliente(data['cliente'])
+                setCliente(data['client']['name'])
+                setMedico(data['doctor'])
+                setData(data['data_da_consulta'])
+                setValor(data['preco'])
+                setComentario(data['comentario'])
             })
 
     const modificarConsultaAction = _ => {
-        navigation(`/appointment/${id}/edit`)
+        fetch(url, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            }).then(_ => {navigate('/home')})
+
+
     }
     const voltarAction = _ => {
-        navigation('/home')
+        navigate('/home')
     }
     
     return(

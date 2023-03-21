@@ -27,6 +27,10 @@ export const Box = styled.div`
     *{
         width: 100%;
     }
+
+    @media (max-width: 400px) {
+        width: 90%;
+      }
 `;
 
 export const ContainerTitle = styled.div`
@@ -123,6 +127,8 @@ export const ContainerButtons = styled.div`
         height: 100%;
         width: 40%;
         box-shadow: 0 0 10px 1px gray;
+
+    
         
     }
 `;
