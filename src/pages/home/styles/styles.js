@@ -98,12 +98,14 @@ export const LeftBar = styled.div`
       };
 
       button{
+        width: 90%;
         height: 10%;
         background-color: transparent;
         border: none;
+        border-radius: 30px;
         margin-top: 5%;
         margin-bottom: 5%;
-        box-shadow: 0 0 0 1px black;
+        box-shadow: 0 0 5px 1px black;
       }
 
 

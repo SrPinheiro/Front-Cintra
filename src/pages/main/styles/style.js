@@ -63,6 +63,11 @@ export const Div2 = styled.div`
     // background-color: red;
     
     flex-direction: column;
+
+    @media (max-width: 400px) {
+        opacity: 0;
+      };
+
     p{
         text-align: start;
         width: 100%;

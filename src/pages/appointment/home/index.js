@@ -13,24 +13,36 @@ export const MarcarConsulta = _ => {
     const [profissional, setProfissional] = useState('');
     const [dataHoraConsulta, setDataHoraConsulta] = useState('');
     const [comentarioc, setComentario] = useState('');
+    const [componentList, setComponentList] = useState([])
 
     useEffect( _ => {
         if(!isAuth()){
             navigate('/')
         }
+        let url = 'http://srpinheiro.com:8080/doctors/especialidades'
+
+        fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }).then(response => response.json()
+        ).then(data =>{
+            const newComponentList = data.map(_ => <option value={_.name}>{_.name}</option>);
+            setComponentList(newComponentList);
+            setProfissional(data[0]['name'])
+        })
         
     }, []);
     
-    const buttonConfirmarAction = _ =>{
+    const buttonConfirmarAction = _ => {
         const url = 'http://srpinheiro.com:8080/consultas'
-
-        
 
         const data = {
             doctor: profissional,
             data_da_consulta: dataHoraConsulta.replace('T', ' '),
             comentario: comentarioc,
-            preco: document.getElementById('preco').value
         }
         
         fetch(url, {
@@ -48,51 +60,13 @@ export const MarcarConsulta = _ => {
                 navigate("/home")       
             })
     }
-    const buttonCancelarAction = _ =>{navigate("/home")}
+    const buttonCancelarAction = _ =>{navigate('/')}
 
     
 
 
     const changeSelectValue = _ => {
-        let valor;
-        switch(_.target.value){
-            case "Medico Geral":
-                valor = 150.00;
-                break;
-            case "Pediatra":
-                valor = 200.00;
-                break;
-            case "Cardiologista":
-                valor = 350.00;
-                break;
-            case "Dermatologista":
-                valor = 250.00;
-                break;
-            case "Ginecologista":
-                valor = 300.00;
-                break;
-            case "Neurologista":
-                valor = 400.00;
-                break;
-            case "Oftalmologista":
-                valor = 200.00;
-                break;
-            case "Psiquiatra":
-                valor = 350.00;
-                break;
-            case "Radiologista":
-                valor = 300.00;
-                break;
-            case "Cirurgiao":
-                valor = 500.00;
-                break;
-            default:
-                valor = 0;
-                break;
-        }
         setProfissional(_.target.value)
-        document.getElementById('preco').textContent="Preço R$" + valor;
-        document.getElementById('preco').value = valor;
         
     }
 
@@ -107,16 +81,7 @@ export const MarcarConsulta = _ => {
                         <ContainerTitle>
                             <Title>Profissinal:</Title>
                             <Select onChange={changeSelectValue}>
-                                <option value="Medico Geral">Medico Geral</option>
-                                <option value="Pediatra">Pediatra</option>
-                                <option value="Cardiologista">Cardiologista</option>
-                                <option value="Dermatologista">Dermatologista</option>
-                                <option value="Ginecologista">Ginecologista</option>
-                                <option value="Neurologista">Neurologista</option>
-                                <option value="Oftalmologista">Oftalmologista</option>
-                                <option value="Psiquiatra">Psiquiatra</option>
-                                <option value="Radiologista">Radiologista</option>
-                                <option value="Cirurgiao">Cirurgião plástico</option>
+                                {componentList}
                             </Select>
 
                         </ContainerTitle>
@@ -128,8 +93,6 @@ export const MarcarConsulta = _ => {
                             </ContainerDate>
 
                             <TextArea placeholder='Comente sobre seu problema.' onChange={_ => setComentario(_.target.value)}></TextArea>
-
-                            <value id='preco' value={150}>Preço R$150.00</value>
 
                             <ContainerButtons>
                                 <RedButton onClick={buttonCancelarAction} >Cancelar</RedButton> 

@@ -14,7 +14,6 @@ export const AppointmentByIndex = _ =>{
     const [cliente, setCliente] = useState("");
     const [medico, setMedico] = useState("");
     const [data, setData] = useState("");
-    const [valor, setValor] = useState("");
     const [comentario, setComentario] = useState("");
 
     useEffect( _ => {
@@ -39,7 +38,6 @@ export const AppointmentByIndex = _ =>{
                 setCliente(data['client']['name'])
                 setMedico(data['doctor'])
                 setData(data['data_da_consulta'])
-                setValor(data['preco'])
                 setComentario(data['comentario'])
             })
 
@@ -80,11 +78,6 @@ export const AppointmentByIndex = _ =>{
                             <PersonDiv>
                                 <h4>Data:&nbsp;</h4>
                                 <p>{data}</p>
-                            </PersonDiv>
-
-                            <PersonDiv>
-                                <h4>Valor:&nbsp;</h4>
-                                <p>R${valor}</p>
                             </PersonDiv>
 
                             <ContainerComentario>
